@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block styleLink %}
+ 
+<link rel="stylesheet" href="/static/css/newflight.css">
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+{% if success %}
+  <script>
+    alert("New flight added")
+    window.location.href = "/allflights"
+  </script>
+{% endif %}
+
+<div class='NewflightPage'>
+
+    <form class="NewflightPageContainer" method='post'>
+
+      <h2>Add new flight</h2>
+      {% csrf_token %}
+    
+    <span class='newflightSpan1'>
+      <div class="form-floating mb-3">
+              {{form.flightNumber}}
+              <label htmlFor="floatingInputemail">flight Name</label>
+        </div>
+        <div class="form-floating mb-3">
+              {{form.flightName}}
+              <label htmlFor="floatingInputmobile">flight Number</label>
+        </div>
+    </span>
+    <span>
+    <div class="form-floating">
+        {{form.originCity}}
+        <label htmlFor="floatingSelect">Origin City</label>
+      </div>
+        <div class="form-floating mb-3">
+              {{form.departureTime}}
+              <label htmlFor="floatingInputmobile">Departure Time</label>
+        </div>
+    </span>
+    <span>
+        <div class="form-floating">
+          {{form.destinationCity}}
+          <label htmlFor="floatingSelect">Destination City</label>
+        </div>
+        <div class="form-floating mb-3">
+              {{form.arrivalTime}}
+              <label htmlFor="floatingInputArrivalTime">Arrival time</label>
+        </div>
+    </span>
+    <span class='newflightSpan2'>
+      <div class="form-floating mb-3">
+              {{form.totalSeats}}
+              <label htmlhtmlFor="floatingInpuSeats">Total seats</label>
+        </div>
+        <div class="form-floating mb-3">
+              {{form.basePrice}}
+              <label htmlhtmlFor="floatingInputBasePrice">Base price</label>
+        </div>
+    </span>
+    
+    <button class='btn btn-primary' type='submit' >Add now</button>
+  </form>
+  </div>
+
+
+
+{% endblock %}

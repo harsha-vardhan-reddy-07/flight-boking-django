@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block styleLink %}
+
+<link rel="stylesheet" href="/static/css/allflights.css">
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+
+<div class="allflightsPage">
+    <h1>All flights</h1>
+
+    <div class="allflights">
+
+      {% for flight in flights %}
+
+            <div class="allflights-flight">
+              <p><b>flight ID:</b> {{flight.id}}</p>
+              <span>
+                <p><b>flight no:</b> {{flight.flightNumber}}</p>
+                <p><b>flight name:</b> {{flight.flightName}}</p>
+              </span>
+              <span>
+                <p><b>Starting City:</b> {{flight.originCity}}</p>
+                <p><b>Departure time:</b> {{flight.departureTime}}</p>
+              </span>
+              <span>
+                <p><b>Destination:</b> {{flight.destinationCity}}</p>
+                <p><b>Arrival time:</b> {{flight.arrivalTime}}</p>
+              </span>
+              <span>
+                <p><b>Base price:</b> {{flight.basePrice}}</p>
+                <p><b>Total seats:</b> {{flight.totalSeats}}</p>
+              </span>
+              <div>
+                <a href="/editflight/{{flight.id}}"><button class="btn btn-primary" >Edit details</button></a>
+              </div>
+            </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block styleLink %}
+
+<link rel="stylesheet" href="/static/css/navbar.css">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="navbar">
+
+    <h3 >SB flightConnect</h3>
+
+    <div class="nav-options"  style="display: none;" id='options_loggedOut' >
+        <a href="/"><p>Home</p></a>
+        <a href="/login"><p >Login</p></a>
+    </div>
+
+    <div class="nav-options"  style="display: none;" id='options_user' >
+        <a href="/"><p>Home</p></a>
+        <a href="/load-bookings"><p >Bookings</p></a>
+        <p id="logoutBtn" >logout</p>
+    </div>
+
+    <div class="nav-options"  style="display: none;" id='options_admin' >
+        <a href="/admin"><p>Home</p></a>
+        <a href="/allUsers"><p >Users</p></a>
+        <a href="/allBookings"><p >Bookings</p></a>
+        <a href="/allflights"><p >flights</p></a>
+        <a href="/newflight"><p >Add flight</p></a>
+        <p id="logoutBtn" >logout</p>
+    </div>
+</div>
+
+
+<script>
+
+    const myLink = document.getElementById('logoutBtn');
+
+    myLink.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        localStorage.clear();
+        for (let key in localStorage) {
+            if (localStorage.hasOwnProperty(key)) {
+                localStorage.removeItem(key);
+            }
+        }
+        window.location.href = '/';
+
+    });
+</script>
+
+<script>
+    function displayDivIfUserIdExists() {
+        const usertype = localStorage.getItem('usertype');
+
+        const options_user = document.getElementById('options_user');
+        const options_admin = document.getElementById('options_admin');
+        const options_loggedOut = document.getElementById('options_loggedOut');
+
+        if (usertype === 'user') {
+            options_user.style.display = 'flex';
+            options_loggedOut.style.display = 'none';
+            options_admin.style.display = 'none';
+
+        }
+        else if (usertype === "admin") {
+            options_user.style.display = 'none';
+            options_loggedOut.style.display = 'none';
+            options_admin.style.display = 'flex';
+
+        }
+        else{
+            options_user.style.display = 'none';
+            options_loggedOut.style.display = 'flex';
+            options_admin.style.display = 'none';
+        }
+    }
+
+    window.onload = displayDivIfUserIdExists;
+</script>
+
+
+{% endblock %}
